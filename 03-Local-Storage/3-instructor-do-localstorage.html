@@ -1,0 +1,100 @@
+<!-- NOTE: THe package.json does not belong here. I used them for practice!
+     Try deleting the package.json and node_modules to practice node-->
+
+
+
+<!--This is from our review of local storage. Local storage is a way to keep
+short pieces of information but it does not persist.
+
+LocalStorage
+
+Stores data with no expiration date, and gets cleared only through JavaScript, or clearing the Browser cache / Locally Stored Data
+Storage limit is the maximum amongst the three
+SessionStorage
+
+The sessionStorage object stores data only for a session, meaning that the data is stored until the browser (or tab) is closed.
+Data is never transferred to the server.
+Storage limit is larger than a cookie (at least 5MB).
+
+You may want to use these sometimes but you can see how Firebase would be better.
+
+For example, you want your users to be able to exit and log back in and have them remembered
+
+-->
+
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Local Storage Example</title>
+
+  </head>
+
+  <style>
+    #input-name, #greeting {
+      font-weight: 700;
+      font-size: 2em;
+
+    }
+  </style>
+  <body>
+
+    <!-- Title -->
+    <h1>Guest Book</h1>
+    <!-- Input Form -->
+
+    <form>
+      <span id="input-name">
+        Your Name: <input id="your-name" type="text">
+        <input id="save-name" value="Save" type="submit">
+      </span>
+    </form>
+
+    <!-- Print Name -->
+    <span id="greeting"></span>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script>
+
+    // When users click "save-name"
+    $("#save-name").on("click", function(event) {
+      // This line prevents the page from refreshing when a user hits "enter".
+      event.preventDefault();
+      // this is something you will want to know how to use. It is worth 
+      // reading more here. https://www.w3schools.com/jsref/event_preventdefault.asp
+
+
+      // Clear the HTML from the greeting header
+      $("#greeting").html("");
+
+      // Grab the user input
+      var username = $("#your-name").val().trim(); 
+      
+      //Trim is important if you are going to usee your information in URLs. If you
+      // do not trim you can have spaces that break things. (So, just use trim!)
+
+      // Clear absolutely everything stored in localStorage using localStorage.clear()
+      localStorage.clear();
+
+      // Store the username into localStorage using "localStorage.setItem"
+      localStorage.setItem("name", username);
+
+      // And display that name for the user using "localStorage.getItem"
+      $("#greeting").text(localStorage.getItem("name"));
+
+    });
+
+    // By default (upon load) show the name stored in localStorage using "localStorage.getItem"
+    $("#greeting").text(localStorage.getItem("name"));
+
+    </script>
+
+  </body>
+
+</html>
